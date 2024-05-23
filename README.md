@@ -1,5 +1,3 @@
-Here's the updated README file for your repository:
-
 # BookHub
 ### Discover, Explore, and Connect with the World of Books
 
