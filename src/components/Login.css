@@ -1,0 +1,110 @@
+.login-page .container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 150px; 
+  color: #000;
+}
+  
+  .login-page .container .heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .login-page .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .login-page .form-group input {
+    width: calc(100% - 20px); /* Adjusted width to add padding */
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #000;
+  }
+  
+  .login-page .form-group input::placeholder {
+    color: #999;
+  }
+  
+  .login-page .btn {
+    background-color: #0073b1;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .login-page .btn:hover {
+    background-color: #005f8d;
+  }
+  
+  .login-page .social-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-page .social-login button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-page .social-login button.google {
+    background-color: #dd4b39;
+    color: #fff;
+  }
+  
+  .login-page .social-login button.anonymous {
+    background-color: #666;
+    color: #fff;
+  }
+  
+  .login-page .social-login .divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 20px 0;
+    position: relative;
+  }
+  
+  .login-page .social-login .divider span {
+    background-color: #fff;
+    padding: 0 10px;
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .login-page .forgot-password {
+    margin-bottom: 20px;
+    display: block;
+    text-align: left;
+    color: #0073b1;
+    cursor: pointer;
+  }
+  
+  .login-page .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
