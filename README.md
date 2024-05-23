@@ -1,7 +1,7 @@
 Here's the updated README file for your repository:
 
 # BookHub
-### Tagline: Discover, Explore, and Connect with the World of Books
+### Discover, Explore, and Connect with the World of Books
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
