@@ -361,7 +361,7 @@ const Books = () => {
 
         <Card className="p-6">
           <form onSubmit={handleSearch} className="space-y-4">
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <Input
                   type="text"
@@ -390,7 +390,7 @@ const Books = () => {
               </Button>
             </div>
 
-            {showFilters && (
+              {showFilters && (
               <div className="p-4 border border-border rounded-lg bg-library-parchment space-y-4">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-sm font-medium text-foreground">Advanced Filters</h3>
@@ -450,7 +450,7 @@ const Books = () => {
           <>
             <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as "all" | "bookmarks" | "recommendations")}>
               <div className="flex justify-between items-center">
-                <TabsList>
+                <TabsList className="flex gap-2 overflow-auto">
                   <TabsTrigger value="all">All Results ({totalResults})</TabsTrigger>
                   <TabsTrigger value="bookmarks">
                     <BookmarkIcon className="h-4 w-4 mr-2" />
@@ -460,7 +460,7 @@ const Books = () => {
                     <Sparkles className="h-4 w-4 mr-2" />
                     AI Recommendations
                   </TabsTrigger>
-                </TabsList>
+                  </TabsList>
                 <div className="flex items-center gap-4">
                   <span className="text-sm text-muted-foreground">
                     Showing {displayedBooks.length} books
@@ -484,7 +484,9 @@ const Books = () => {
 
               <TabsContent value="all" className="mt-4">
                 <Card>
-                  <Table>
+                  {/* Desktop table */}
+                  <div className="hidden md:block">
+                    <Table>
                     <TableHeader>
                       <TableRow>
                         <TableHead className="cursor-pointer" onClick={() => sortBooks("title")}>
@@ -568,7 +570,58 @@ const Books = () => {
                         })
                       )}
                     </TableBody>
-                  </Table>
+                    </Table>
+                  </div>
+
+                  {/* Mobile list */}
+                  <div className="md:hidden space-y-3">
+                    {isLoading ? (
+                      Array.from({ length: itemsPerPage }).map((_, i) => (
+                        <Card key={i} className="p-3">
+                          <div className="animate-pulse flex items-center gap-3">
+                            <div className="h-12 w-8 bg-muted rounded" />
+                            <div className="flex-1">
+                              <div className="h-4 bg-muted rounded mb-2 w-3/4" />
+                              <div className="h-3 bg-muted rounded w-1/2" />
+                            </div>
+                          </div>
+                        </Card>
+                      ))
+                    ) : (
+                      displayedBooks.map((book) => {
+                        const coverUrl = getCoverUrl(book);
+                        const isBookmarked = bookmarks.includes(book.key);
+                        return (
+                          <Card key={book.key} className="p-3" onClick={() => setSelectedBook(book)}>
+                            <div className="flex items-center gap-3">
+                              {coverUrl ? (
+                                <img src={coverUrl} alt={book.title} className="h-12 w-8 object-cover rounded border border-border" />
+                              ) : (
+                                <div className="h-12 w-8 bg-muted rounded border border-border flex items-center justify-center">
+                                  <BookmarkIcon className="h-5 w-5 text-muted-foreground" />
+                                </div>
+                              )}
+                              <div className="flex-1">
+                                <div className="font-medium">{book.title}</div>
+                                <div className="text-sm text-muted-foreground">{book.author_name?.join(", ") || "Unknown"}</div>
+                                <div className="text-xs text-muted-foreground mt-1">{book.first_publish_year || "Unknown"} • {getFirstISBN(book) || "N/A"}</div>
+                              </div>
+                              <div onClick={(e) => e.stopPropagation()}>
+                                <Button
+                                  variant={isBookmarked ? "default" : "ghost"}
+                                  size="sm"
+                                  onClick={() => toggleBookmark(book.key)}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <BookmarkIcon className={`h-4 w-4 ${isBookmarked ? 'fill-current' : ''}`} />
+                                </Button>
+                              </div>
+                            </div>
+                          </Card>
+                        );
+                      })
+                    )}
+                  </div>
                 </Card>
               </TabsContent>
 
@@ -580,50 +633,88 @@ const Books = () => {
                   </Card>
                 ) : (
                   <Card>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Title</TableHead>
-                          <TableHead>Author</TableHead>
-                          <TableHead>First Published</TableHead>
-                          <TableHead>ISBN</TableHead>
-                          <TableHead className="w-24"></TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {displayedBooks.map((book) => {
-                          const coverUrl = getCoverUrl(book);
-                          const isBookmarked = bookmarks.includes(book.key);
+                    <div className="hidden md:block">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Title</TableHead>
+                            <TableHead>Author</TableHead>
+                            <TableHead>First Published</TableHead>
+                            <TableHead>ISBN</TableHead>
+                            <TableHead className="w-24"></TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {displayedBooks.map((book) => {
+                            const coverUrl = getCoverUrl(book);
+                            const isBookmarked = bookmarks.includes(book.key);
 
-                          return (
-                            <TableRow 
-                              key={book.key}
-                              className="cursor-pointer hover:bg-muted/50"
-                              onClick={() => setSelectedBook(book)}
-                            >
-                              <TableCell className="font-medium">
-                                <div className="flex items-center gap-3">
-                                  {coverUrl ? (
-                                    <img 
-                                      src={coverUrl} 
-                                      alt={book.title}
-                                      className="h-12 w-8 object-cover rounded border border-border"
-                                      onError={(e) => {
-                                        e.currentTarget.style.display = 'none';
-                                      }}
-                                    />
-                                  ) : (
-                                    <div className="h-12 w-8 bg-muted rounded border border-border flex items-center justify-center">
-                                      <BookmarkIcon className="h-5 w-5 text-muted-foreground" />
-                                    </div>
-                                  )}
-                                  <span>{book.title}</span>
+                            return (
+                              <TableRow 
+                                key={book.key}
+                                className="cursor-pointer hover:bg-muted/50"
+                                onClick={() => setSelectedBook(book)}
+                              >
+                                <TableCell className="font-medium">
+                                  <div className="flex items-center gap-3">
+                                    {coverUrl ? (
+                                      <img 
+                                        src={coverUrl} 
+                                        alt={book.title}
+                                        className="h-12 w-8 object-cover rounded border border-border"
+                                        onError={(e) => {
+                                          e.currentTarget.style.display = 'none';
+                                        }}
+                                      />
+                                    ) : (
+                                      <div className="h-12 w-8 bg-muted rounded border border-border flex items-center justify-center">
+                                        <BookmarkIcon className="h-5 w-5 text-muted-foreground" />
+                                      </div>
+                                    )}
+                                    <span>{book.title}</span>
+                                  </div>
+                                </TableCell>
+                                <TableCell>{book.author_name?.join(", ") || "Unknown"}</TableCell>
+                                <TableCell>{book.first_publish_year || "Unknown"}</TableCell>
+                                <TableCell className="font-mono text-sm">{getFirstISBN(book) || "N/A"}</TableCell>
+                                <TableCell onClick={(e) => e.stopPropagation()}>
+                                  <Button
+                                    variant={isBookmarked ? "default" : "ghost"}
+                                    size="sm"
+                                    onClick={() => toggleBookmark(book.key)}
+                                    className="h-8 w-8 p-0"
+                                  >
+                                    <BookmarkIcon className="h-4 w-4" />
+                                  </Button>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                        </TableBody>
+                      </Table>
+                    </div>
+
+                    <div className="md:hidden space-y-3">
+                      {displayedBooks.map((book) => {
+                        const coverUrl = getCoverUrl(book);
+                        const isBookmarked = bookmarks.includes(book.key);
+
+                        return (
+                          <Card key={book.key} className="p-3" onClick={() => setSelectedBook(book)}>
+                            <div className="flex items-center gap-3">
+                              {coverUrl ? (
+                                <img src={coverUrl} alt={book.title} className="h-12 w-8 object-cover rounded border border-border" />
+                              ) : (
+                                <div className="h-12 w-8 bg-muted rounded border border-border flex items-center justify-center">
+                                  <BookmarkIcon className="h-5 w-5 text-muted-foreground" />
                                 </div>
-                              </TableCell>
-                              <TableCell>{book.author_name?.join(", ") || "Unknown"}</TableCell>
-                              <TableCell>{book.first_publish_year || "Unknown"}</TableCell>
-                              <TableCell className="font-mono text-sm">{getFirstISBN(book) || "N/A"}</TableCell>
-                              <TableCell onClick={(e) => e.stopPropagation()}>
+                              )}
+                              <div className="flex-1">
+                                <div className="font-medium">{book.title}</div>
+                                <div className="text-sm text-muted-foreground">{book.author_name?.join(", ") || "Unknown"}</div>
+                                <div className="text-xs text-muted-foreground mt-1">{book.first_publish_year || "Unknown"} • {getFirstISBN(book) || "N/A"}</div>
+                              </div>
+                              <div onClick={(e) => e.stopPropagation()}>
                                 <Button
                                   variant={isBookmarked ? "default" : "ghost"}
                                   size="sm"
@@ -632,12 +723,12 @@ const Books = () => {
                                 >
                                   <BookmarkIcon className="h-4 w-4" />
                                 </Button>
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
+                              </div>
+                            </div>
+                          </Card>
+                        );
+                      })}
+                    </div>
                   </Card>
                 )}
               </TabsContent>
