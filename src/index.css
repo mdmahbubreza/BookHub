@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Library-inspired color palette */
+    --background: 40 20% 97%;
+    --foreground: 30 10% 15%;
+
+    --card: 40 25% 99%;
+    --card-foreground: 30 10% 15%;
+
+    --popover: 40 25% 99%;
+    --popover-foreground: 30 10% 15%;
+
+    /* Deep burgundy - leather-bound books */
+    --primary: 355 45% 35%;
+    --primary-foreground: 40 25% 98%;
+
+    /* Warm brown - old paper */
+    --secondary: 30 25% 85%;
+    --secondary-foreground: 30 10% 15%;
+
+    --muted: 30 20% 90%;
+    --muted-foreground: 30 8% 45%;
+
+    /* Gold accent - bookmarks and details */
+    --accent: 45 75% 55%;
+    --accent-foreground: 30 10% 15%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 40 25% 98%;
+
+    --border: 30 15% 85%;
+    --input: 30 15% 85%;
+    --ring: 355 45% 35%;
+
+    --radius: 0.5rem;
+
+    /* Custom library tokens */
+    --library-shelf: 25 30% 45%;
+    --library-gold: 45 85% 60%;
+    --library-parchment: 40 30% 95%;
+    
+    --sidebar-background: 30 15% 96%;
+    --sidebar-foreground: 30 10% 20%;
+    --sidebar-primary: 355 45% 35%;
+    --sidebar-primary-foreground: 40 25% 98%;
+    --sidebar-accent: 30 20% 90%;
+    --sidebar-accent-foreground: 30 10% 20%;
+    --sidebar-border: 30 15% 85%;
+    --sidebar-ring: 355 45% 35%;
+  }
+
+  .dark {
+    /* Dark library theme - evening reading room */
+    --background: 30 15% 10%;
+    --foreground: 40 25% 95%;
+
+    --card: 30 15% 12%;
+    --card-foreground: 40 25% 95%;
+
+    --popover: 30 15% 12%;
+    --popover-foreground: 40 25% 95%;
+
+    --primary: 355 50% 50%;
+    --primary-foreground: 40 25% 98%;
+
+    --secondary: 30 15% 20%;
+    --secondary-foreground: 40 25% 95%;
+
+    --muted: 30 10% 18%;
+    --muted-foreground: 30 15% 60%;
+
+    --accent: 45 75% 55%;
+    --accent-foreground: 30 10% 10%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 40 25% 98%;
+
+    --border: 30 10% 22%;
+    --input: 30 10% 22%;
+    --ring: 355 50% 50%;
+    
+    --library-shelf: 25 20% 25%;
+    --library-gold: 45 85% 60%;
+    --library-parchment: 30 15% 15%;
+    
+    --sidebar-background: 30 15% 10%;
+    --sidebar-foreground: 40 25% 90%;
+    --sidebar-primary: 355 50% 50%;
+    --sidebar-primary-foreground: 40 25% 98%;
+    --sidebar-accent: 30 10% 18%;
+    --sidebar-accent-foreground: 40 25% 90%;
+    --sidebar-border: 30 10% 22%;
+    --sidebar-ring: 355 50% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
