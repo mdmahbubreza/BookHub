@@ -13,15 +13,15 @@ const Layout = ({ children }: LayoutProps) => {
       <header className="border-b border-border bg-card sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 group">
-              <BookOpen className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
-              <div>
-                <h1 className="text-2xl font-serif font-bold text-primary">BookHub</h1>
-                <p className="text-xs text-muted-foreground">Your Literary Gateway</p>
-              </div>
-            </Link>
-            <ThemeToggle />
-          </div>
+              <Link to="/" className="flex items-center gap-2 group">
+                <BookOpen className="h-6 w-6 md:h-8 md:w-8 text-primary transition-transform group-hover:scale-110" />
+                <div>
+                  <h1 className="text-xl md:text-2xl font-serif font-bold text-primary">BookHub</h1>
+                  <p className="hidden md:block text-xs text-muted-foreground">Your Literary Gateway</p>
+                </div>
+              </Link>
+              <ThemeToggle />
+            </div>
         </div>
       </header>
       <main className="container mx-auto px-4 py-8">{children}</main>
