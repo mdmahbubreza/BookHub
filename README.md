@@ -1,8 +1,8 @@
-# BookHub — The Wise Shelf
+# BookHub
 
 Live demo: https://bookhub.app/  •  Sponsor: https://github.com/sponsors/mdmahbubreza
 
-Welcome — BookHub helps you search, browse, and save books using open data from Open Library. It's simple, privacy-focused, and shows edition-aware ISBNs and cover fallbacks.
+BookHub helps you search, browse, and save books using open data from Open Library. It's simple, privacy-focused, and shows edition-aware ISBNs and cover fallbacks.
 
 Quick Start
 -----------
@@ -26,10 +26,10 @@ Main features
 - Book details modal with notes and bookmarks (stored in Supabase)
 - Server-side recommendations via Supabase Edge Functions
 
-Environment (minimal)
+Environment
 ---------------------
 
-Create a `.env` file (do NOT commit). Example:
+Create a `.env` file. Example:
 
 ```
 VITE_SUPABASE_URL=https://<project-ref>.supabase.co
@@ -38,28 +38,11 @@ VITE_SUPABASE_PUBLISHABLE_KEY=<your-anon-key>
 
 For CI/deploys add securely: `SUPABASE_ACCESS_TOKEN` and, if needed, `SUPABASE_SERVICE_ROLE_KEY`.
 
-Deploy notes
-------------
 
-- Frontend: Vercel / Netlify / Cloudflare Pages
-- Functions: Supabase Edge Functions (use `supabase functions deploy` from CI with `SUPABASE_ACCESS_TOKEN`)
-
-Support & Troubleshooting
--------------------------
-
-- Missing covers/ISBN: Open Library data can be incomplete — the app falls back to alternatives.
-- If the dev server fails, run `npm install` and confirm Node/NPM versions.
-- Never expose service-role keys in `VITE_` variables.
-
-Contributing
-------------
-
-PRs welcome — please avoid committing secrets. Open an issue for big changes.
-
-License & Contact
+Contact
 -----------------
 
-MIT. Maintainer: `mdmahbubreza` — https://github.com/mdmahbubreza
+Maintainer: `mdmahbubreza` — https://github.com/mdmahbubreza
 
 
 ## Project info
@@ -97,11 +80,3 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
-
-## How can I deploy this project?
-
-Deploy with your preferred platform (Vercel/Netlify) or run `npm run build` and serve the `dist` directory.
-
-## Can I connect a custom domain?
-
-Yes — configure through your hosting provider and point DNS to the deployment.
